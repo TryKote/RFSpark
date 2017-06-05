@@ -87,7 +87,8 @@ public class forest {
         JavaRDD<LabeledPoint> testData = splits[1];
 
         Map<Integer, Integer> categoricalFeaturesInfo = new HashMap<>();
-        String featureSubsetStrategy = "auto";
+        //String featureSubsetStrategy = "auto";
+        String featureSubsetStrategy = "all";
         String impurity = "gini";
 
         RandomForestModel model = RandomForest.trainClassifier(trainingData, numClasses,
@@ -104,7 +105,18 @@ public class forest {
 
     static private String toVectors(String[] foo) {
         String last = foo[foo.length-1];
-        String ans = last;
+        Integer iLast = Integer.valueOf(last);
+        if (iLast <= 20) {
+            iLast = 1;
+        } else if (iLast <= 40) {
+            iLast = 2;
+        } else if (iLast <= 60) {
+            iLast = 3;
+        } else if (iLast <= 80) {
+            iLast = 4;
+        } else iLast = 5;
+
+        String ans = iLast.toString();
         for(Integer i = 0; i < foo.length-1; i++) {
             ans += (" " + (i+1) + ":" + foo[i]);
         }

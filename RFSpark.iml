@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="spark" level="project" />
+    <orderEntry type="library" name="spark1" level="project" />
   </component>
 </module>
