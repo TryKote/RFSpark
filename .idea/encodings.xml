@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$USER_HOME$/storage/spark-git/spark" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/assembly" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/common/network-common" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/common/network-shuffle" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/common/sketch" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/common/tags" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/common/unsafe" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/core" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/examples" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/external/flume" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/external/flume-assembly" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/external/flume-sink" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/external/kafka-0-10" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/external/kafka-0-10-assembly" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/external/kafka-0-10-sql" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/external/kafka-0-8" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/external/kafka-0-8-assembly" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/graphx" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/launcher" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/mllib" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/mllib-local" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/repl" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/sql/catalyst" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/sql/core" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/sql/hive" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/streaming" charset="UTF-8" />
+    <file url="file://$USER_HOME$/storage/spark-git/spark/tools" charset="UTF-8" />
+  </component>
+</project>

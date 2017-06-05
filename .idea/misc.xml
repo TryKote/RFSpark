@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$USER_HOME$/storage/spark-git/spark/core/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/mllib/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/mllib-local/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/graphx/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$USER_HOME$/storage/spark-git/spark/assembly/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/common/network-common/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/common/network-shuffle/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/common/sketch/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/common/tags/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/common/unsafe/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/core/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/examples/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/external/flume-assembly/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/external/flume-sink/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/external/flume/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/external/kafka-0-10-assembly/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/external/kafka-0-10-sql/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/external/kafka-0-10/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/external/kafka-0-8-assembly/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/external/kafka-0-8/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/graphx/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/launcher/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/mllib-local/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/mllib/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/repl/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/sql/catalyst/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/sql/core/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/sql/hive/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/streaming/pom.xml" />
+        <option value="$USER_HOME$/storage/spark-git/spark/tools/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectKey">
+    <option name="state" value="project://e2804f05-5315-4fc6-a121-c522a6c26470" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
