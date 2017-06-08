@@ -18,6 +18,7 @@ import scala.Tuple2;
 //import org.slf4j.impl.StaticLoggerBinder;
 
 import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -33,12 +34,14 @@ public class forest {
     private static SparkConf sparkConf;
     private static JavaSparkContext jsc;
     private static Logger log;
+    private static remoteLog rLog;
 
     forest(Integer numClasses, Integer numTrees, Integer maxDepth, Integer maxBins) {
         org.apache.log4j.Logger.getLogger("org").setLevel(Level.ERROR);
         org.apache.log4j.Logger.getLogger("akka").setLevel(Level.ERROR);
 
         forest.log = Logger.getLogger(forest.class.getName());
+        forest.rLog = new remoteLog("http://TryKote.suroot.com/");
 
         forest.maxBins = maxBins;
         forest.maxDepth = maxDepth;
@@ -48,7 +51,11 @@ public class forest {
 
         sparkConf = new SparkConf().setAppName("JavaRandomForestClassificationFire").setMaster("local[4]").set("spark.executor.memory","2g");
         jsc = new JavaSparkContext(sparkConf);
+        rLog.send(jsc.getConf().toDebugString() + "\nPARMS: \nnumClasses:" +
+                numClasses + "\nnumTrees:" + numTrees + "\nmaxDepth:" + maxDepth +
+                "\nmaxBins:" + maxBins + "\nseed:" + seed);
         jsc.setLogLevel("ERROR");
+
     }
 
     @Override
@@ -57,6 +64,11 @@ public class forest {
     }
 
     static public void load(String fileName, String data, String fileAnswer) {
+        String to_rLog = "Try load forest model and predict data..." +
+                "\nfileName=" + fileName +
+                "\ndata=" + data +
+                "\nfileAnswer=" + fileAnswer +
+                "\n";
         RandomForestModel loadModel = RandomForestModel.load(jsc.sc(), fileName);
         String[] sData = data.split(",");
         double[] dData = new double[sData.length];
@@ -67,20 +79,28 @@ public class forest {
         try {
             Double predict = loadModel.predict(inputVectorPredict);
             System.out.println("Predict: " + predict);
+            to_rLog += "Predict=" + predict.toString();
             try (FileWriter fw = new FileWriter(fileAnswer, true);
                  BufferedWriter bw = new BufferedWriter(fw);
                  PrintWriter out = new PrintWriter(bw))
             {
                 out.println(predict.toString());
             } catch (Exception e) {
+                to_rLog += ("\nCan not write answer to file!\n" + e.toString());
                 log.severe("Can not write answer to file!");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            to_rLog += "\nNumber of parameters in the learning dataset does not converge with received!\n";
             log.severe("Number of parameters in the learning dataset does not converge with received!");
         }
+        rLog.send(to_rLog);
     }
 
     static public void save(String fileName, String datasetPath) {
+        String to_rLog = "Try generate forest..." +
+                "\nforestName=" + fileName +
+                "\ndatasetPath=" + datasetPath +
+                "\n";
         JavaRDD<LabeledPoint> data = MLUtils.loadLibSVMFile(jsc.sc(), datasetPath).toJavaRDD();
         JavaRDD<LabeledPoint>[] splits = data.randomSplit(new double[]{1.0, 0.25});
         JavaRDD<LabeledPoint> trainingData = splits[0];
@@ -100,7 +120,14 @@ public class forest {
         double testErr =
                 predictionAndLabel.filter(pl -> !pl._1().equals(pl._2())).count() / (double) testData.count();
         System.out.println("totalError: " + testErr);
-        model.save(jsc.sc(), fileName);
+        to_rLog += ("totalError=" + String.valueOf(testErr) + "\n");
+        try {
+            model.save(jsc.sc(), fileName);
+        } catch (Exception ex) {
+            log.severe("Can't save forest! " + ex.getMessage());
+            to_rLog += ("Can't save forest! " + ex.getMessage());
+        }
+        rLog.send(to_rLog);
     }
 
     static private String toVectors(String[] foo) {
@@ -135,6 +162,9 @@ public class forest {
     }*/
 
     static public void convert(String inputFile) {
+        String to_rLog = "Try converting csv dataset..." +
+                "\ninputFile=" + inputFile +
+                "\n";
         JavaRDD<String> csv = jsc.textFile(inputFile);
         JavaRDD<String[]> csvCol =  csv.map(s -> s.split(";"));
         JavaRDD<String> out = csvCol.map(sArr -> toVectors(sArr));
@@ -153,10 +183,14 @@ public class forest {
                 w.println(str);
             }
             w.close();
+            to_rLog += "Successfuly!\n";
         } catch (IOException e) {
+            to_rLog += ("Can't save corrected dataset!\n" + e.toString() + "\n");
             log.severe("Can't save corrected dataset!");
             e.printStackTrace();
         }
+
+        rLog.send(to_rLog);
 
         //JavaRDD<String> out = csvColl.
     }

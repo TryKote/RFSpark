@@ -10,6 +10,7 @@ import static java.lang.System.exit;
 public class Main {
     public static void main(String[] args) {
         Logger log = Logger.getLogger(Main.class.getName());
+        remoteLog rLog = new remoteLog("http://TryKote.suroot.com/");
 
         System.out.println("" +
                 "------------------------------------------------------------\n" +
@@ -73,6 +74,7 @@ public class Main {
         }
         //-----------------SET GENERAL PARAMETERS END------------------
 
+
         forest generalForest = new forest(numClasses, numTrees, maxDepth, maxBins);
 
         String datasetPath = new String();
@@ -110,7 +112,6 @@ public class Main {
                 generalForest.save(inputArgs.get("saveForest"), datasetPath);
             }
         }
-
         generalForest.finalize();
     }
 }
