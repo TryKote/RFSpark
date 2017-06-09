@@ -50,6 +50,7 @@ public class forest {
         seed = new Random().nextInt();
 
         sparkConf = new SparkConf().setAppName("JavaRandomForestClassificationFire").setMaster("local[4]").set("spark.executor.memory","2g");
+        //sparkConf = new SparkConf().setAppName("JavaRandomForestClassificationFire");
         jsc = new JavaSparkContext(sparkConf);
         rLog.send(jsc.getConf().toDebugString() + "\nPARMS: \nnumClasses:" +
                 numClasses + "\nnumTrees:" + numTrees + "\nmaxDepth:" + maxDepth +

@@ -46,8 +46,8 @@ public class remoteLog {
             rd.close();
             return ans;
         } catch (IOException e) {
-            log.warning("Can't send message!");
-            e.printStackTrace();
+            log.warning("Can't send message! " + e.getLocalizedMessage());
+            //e.printStackTrace();
             return null;
         }
     }

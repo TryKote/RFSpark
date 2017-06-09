@@ -1,6 +1,7 @@
 package NPteam;
 
 import javassist.NotFoundException;
+import org.apache.spark.sql.catalyst.plans.logical.Except;
 //import org.apache.log4j.Level;
 import java.util.*;
 import java.util.logging.Logger;
@@ -11,6 +12,8 @@ public class Main {
     public static void main(String[] args) {
         Logger log = Logger.getLogger(Main.class.getName());
         remoteLog rLog = new remoteLog("http://TryKote.suroot.com/");
+
+        config cfg = new config("config");
 
         System.out.println("" +
                 "------------------------------------------------------------\n" +
@@ -35,36 +38,52 @@ public class Main {
 
         //-----------------SET GENERAL PARAMETERS------------------
         Integer numClasses;   //4
+        Integer numTrees;  //16
+        Integer maxDepth;
+        Integer maxBins;    //16
+
         try {
             numClasses = Integer.valueOf(inputArgs.get("numClasses"));
         } catch (Exception e) {
             numClasses = 4;
-            log.warning("Error use \"numClasses\" parameter!");
         }
 
-        Integer numTrees;  //16
         try {
             numTrees = Integer.valueOf(inputArgs.get("numTrees"));
         } catch (Exception e) {
             numTrees = 16;
-            log.warning("Error use \"numTrees\" parameter!");
         }
 
-        Integer maxDepth;  //10
         try {
             maxDepth = Integer.valueOf(inputArgs.get("maxDepth"));
         } catch (Exception e) {
-            maxDepth = 10;
-            log.warning("Error use \"maxDepth\" parameter!");
+            maxDepth = 5;
         }
 
-        Integer maxBins;    //16
         try {
             maxBins = Integer.valueOf(inputArgs.get("maxBins"));
         } catch (Exception e) {
             maxBins = 16;
-            log.warning("Error use \"maxBins\" parameter!");
         }
+
+        try {
+            numClasses = Integer.valueOf(cfg.load("numClasses"));
+        } catch (Exception ignored) {}
+        try {
+            numTrees = Integer.valueOf(cfg.load("numTrees"));
+        } catch (Exception ignored) {}
+        try {
+            maxDepth = Integer.valueOf(cfg.load("maxDepth"));
+        } catch (Exception ignored) {}
+        try {
+            maxBins = Integer.valueOf(cfg.load("maxBins"));
+        } catch (Exception ignored) {}
+
+        cfg.recreate();
+        cfg.save("numClasses", numClasses.toString(), "How much classifications answer");
+        cfg.save("numTrees", numTrees.toString(), "How much trees");
+        cfg.save("maxDepth", maxDepth.toString(), "Accuracy");
+        cfg.save("maxBins", maxBins.toString(), "How much bins");
 
         String fileAnswer = "fileAnswer.txt";
         if (inputArgs.containsKey("fileAnswer")) {
