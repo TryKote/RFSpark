@@ -18,9 +18,29 @@ public class remoteLog {
     private String Message;
     private String User;
     private Logger log;
+    private final String DEFAULT_SERVER = "http://TryKote.suroot.com/";
 
     remoteLog(String ServerURL) {
         log = Logger.getLogger(remoteLog.class.getName());
+        User = System.getProperty("user.name");
+        if (ServerURL.endsWith("/")) {
+            strServerURL = ServerURL + "index.php?user=" + User + "&msg=";
+            //this.ServerRequest = new URL(ServerURL + "index.php?user=" + User + "&msg=");
+        } else {
+            strServerURL = ServerURL + "/index.php?user=" + User + "&msg=";
+            //this.ServerRequest = new URL(ServerURL + "/index.php?user=" + User + "&msg=");
+        }
+    }
+    remoteLog() {
+        log = Logger.getLogger(remoteLog.class.getName());
+        config cfg = new config("config");
+        String ServerURL;
+        try {
+            ServerURL = cfg.load("ServerURL");
+        } catch (Exception e) {
+            log.warning("Using default remote server! " + e.getMessage() + "\nDefault server: " + DEFAULT_SERVER);
+            ServerURL = DEFAULT_SERVER;
+        }
         User = System.getProperty("user.name");
         if (ServerURL.endsWith("/")) {
             strServerURL = ServerURL + "index.php?user=" + User + "&msg=";

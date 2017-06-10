@@ -41,7 +41,7 @@ public class forest {
         org.apache.log4j.Logger.getLogger("akka").setLevel(Level.ERROR);
 
         forest.log = Logger.getLogger(forest.class.getName());
-        forest.rLog = new remoteLog("http://TryKote.suroot.com/");
+        forest.rLog = new remoteLog();
 
         forest.maxBins = maxBins;
         forest.maxDepth = maxDepth;

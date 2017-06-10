@@ -1,0 +1,14 @@
+#How much classifications answer
+#Sat Jun 10 00:14:54 YEKT 2017
+numClasses=4
+#How much trees
+#Sat Jun 10 00:14:54 YEKT 2017
+numTrees=16
+#Accuracy
+#Sat Jun 10 00:14:54 YEKT 2017
+maxDepth=5
+#How much bins
+#Sat Jun 10 00:14:54 YEKT 2017
+maxBins=16
+#Sat Jun 10 11:50:47 YEKT 2017
+ServerURL=http\://trykote.suroot.com/

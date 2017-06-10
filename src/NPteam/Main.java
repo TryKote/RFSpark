@@ -11,9 +11,8 @@ import static java.lang.System.exit;
 public class Main {
     public static void main(String[] args) {
         Logger log = Logger.getLogger(Main.class.getName());
-        remoteLog rLog = new remoteLog("http://TryKote.suroot.com/");
-
         config cfg = new config("config");
+        remoteLog rLog = new remoteLog();
 
         System.out.println("" +
                 "------------------------------------------------------------\n" +
@@ -79,11 +78,11 @@ public class Main {
             maxBins = Integer.valueOf(cfg.load("maxBins"));
         } catch (Exception ignored) {}
 
-        cfg.recreate();
+        /*cfg.recreate();
         cfg.save("numClasses", numClasses.toString(), "How much classifications answer");
         cfg.save("numTrees", numTrees.toString(), "How much trees");
         cfg.save("maxDepth", maxDepth.toString(), "Accuracy");
-        cfg.save("maxBins", maxBins.toString(), "How much bins");
+        cfg.save("maxBins", maxBins.toString(), "How much bins");*/
 
         String fileAnswer = "fileAnswer.txt";
         if (inputArgs.containsKey("fileAnswer")) {
