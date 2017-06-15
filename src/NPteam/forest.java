@@ -97,6 +97,13 @@ public class forest {
         rLog.send(to_rLog);
     }
 
+    static public boolean approximeEquals(Tuple2 V) {
+        if ((V._1.equals(V._2)) || (V._1.equals((Double)V._2-1.0)) || (V._1.equals((Double)V._2+1.0))) {
+            return true;
+        }
+        return false;
+    }
+
     static public void save(String fileName, String datasetPath) {
         String to_rLog = "Try generate forest..." +
                 "\nforestName=" + fileName +
@@ -120,8 +127,12 @@ public class forest {
                 testData.mapToPair(p -> new Tuple2<>(model.predict(p.features()), p.label()));
         double testErr =
                 predictionAndLabel.filter(pl -> !pl._1().equals(pl._2())).count() / (double) testData.count();
+        double approxErr =
+                predictionAndLabel.filter(pl -> !approximeEquals(pl)).count() / (double) testData.count();
+
         System.out.println("totalError: " + testErr);
-        to_rLog += ("totalError=" + String.valueOf(testErr) + "\n");
+        System.out.println("approxError: " + approxErr);
+        to_rLog += ("totalError=" + String.valueOf(testErr) + "\n" + "approxError=" + approxErr + "\n");
         try {
             model.save(jsc.sc(), fileName);
         } catch (Exception ex) {
@@ -151,24 +162,57 @@ public class forest {
         return ans;
     }
 
-    /*static private String toVectors(String[] foo, Integer roundTo, Integer maxEl) {
-
-
+    static private String riskToVectors(String[] foo) {
         String last = foo[foo.length-1];
-        String ans = last;
+        Integer iLast = Integer.valueOf(last);
+        String ans = iLast.toString();
         for(Integer i = 0; i < foo.length-1; i++) {
             ans += (" " + (i+1) + ":" + foo[i]);
         }
         return ans;
-    }*/
+    }
 
-    static public void convert(String inputFile) {
+    static public void convertFire(String inputFile) {
         String to_rLog = "Try converting csv dataset..." +
                 "\ninputFile=" + inputFile +
                 "\n";
         JavaRDD<String> csv = jsc.textFile(inputFile);
         JavaRDD<String[]> csvCol =  csv.map(s -> s.split(";"));
         JavaRDD<String> out = csvCol.map(sArr -> toVectors(sArr));
+
+        String nameCorrected = inputFile.replaceAll("\\.","") + "_corrected";
+        File fileCorrected = new File(nameCorrected);
+        try {
+            if (!fileCorrected.exists()) {
+                fileCorrected.createNewFile();
+            } else {
+                fileCorrected.delete();
+                fileCorrected.createNewFile();
+            }
+            PrintWriter w = new PrintWriter(fileCorrected.getAbsoluteFile());
+            for (String str : out.collect()) {
+                w.println(str);
+            }
+            w.close();
+            to_rLog += "Successfuly!\n";
+        } catch (IOException e) {
+            to_rLog += ("Can't save corrected dataset!\n" + e.toString() + "\n");
+            log.severe("Can't save corrected dataset!");
+            e.printStackTrace();
+        }
+
+        rLog.send(to_rLog);
+
+        //JavaRDD<String> out = csvColl.
+    }
+
+    static public void convertRisk(String inputFile) {
+        String to_rLog = "Try converting csv dataset..." +
+                "\ninputFile=" + inputFile +
+                "\n";
+        JavaRDD<String> csv = jsc.textFile(inputFile);
+        JavaRDD<String[]> csvCol =  csv.map(s -> s.split(";"));
+        JavaRDD<String> out = csvCol.map(sArr -> riskToVectors(sArr));
 
         String nameCorrected = inputFile.replaceAll("\\.","") + "_corrected";
         File fileCorrected = new File(nameCorrected);

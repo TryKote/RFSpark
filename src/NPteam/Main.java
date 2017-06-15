@@ -1,7 +1,6 @@
 package NPteam;
 
 import javassist.NotFoundException;
-import org.apache.spark.sql.catalyst.plans.logical.Except;
 //import org.apache.log4j.Level;
 import java.util.*;
 import java.util.logging.Logger;
@@ -21,7 +20,8 @@ public class Main {
                 "|                      Instructions:                       |\n" +
                 "| -> loadForest=<forest name> data=<double>,<double>, ...  |\n" +
                 "| -> saveForest=<forest name> dataset=<dataset(vectors)>   |\n" +
-                "| -> convert=<dataset.csv>                                 |\n" +
+                "| -> convertFire=<dataset.csv>                             |\n" +
+                "| -> convertRisk=<dataset.csv>                             |\n" +
                 "------------------------------------------------------------\n");
 
         //-----------------GET ALL PARAMETERS------------------------
@@ -44,7 +44,7 @@ public class Main {
         try {
             numClasses = Integer.valueOf(inputArgs.get("numClasses"));
         } catch (Exception e) {
-            numClasses = 4;
+            numClasses = 6;
         }
 
         try {
@@ -111,9 +111,14 @@ public class Main {
             }
         }
 
-        if (inputArgs.containsKey("convert")) {
-            if (!inputArgs.get("convert").isEmpty()) {
-                generalForest.convert(inputArgs.get("convert"));
+        if (inputArgs.containsKey("convertFire")) {
+            if (!inputArgs.get("convertFire").isEmpty()) {
+                generalForest.convertFire(inputArgs.get("convertFire"));
+            }
+        }
+        if (inputArgs.containsKey("convertRisk")) {
+            if (!inputArgs.get("convertRisk").isEmpty()) {
+                generalForest.convertRisk(inputArgs.get("convertRisk"));
             }
         }
 

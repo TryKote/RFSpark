@@ -56,6 +56,8 @@ public class remoteLog {
 
             ServerRequest = new URL(strServerURL + URLEncoder.encode(msg, "UTF-8"));
             HttpURLConnection con = (HttpURLConnection) ServerRequest.openConnection();
+            con.setConnectTimeout(1000);
+            con.setReadTimeout(1000);
             con.setRequestMethod("GET");
             BufferedReader rd = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String line,
